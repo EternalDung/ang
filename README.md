@@ -9,7 +9,8 @@
 
 <br/>
 
-![logos](https://testingcf.jsdelivr.net/gh/turkyden/lizhi/screenshot.png)
+![logos](https://testingcf.jsdelivr.net/gh/EternalDung/ang/screenshot.png)
+
 
 ## 🌏 永久托管
 
