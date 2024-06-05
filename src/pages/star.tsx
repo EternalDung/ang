@@ -32,7 +32,7 @@ function Star() {
               扫码<span className="text-green-500">微信小商店</span>下单
               ，赞助费仅用于网站维护
             </div>
-            <div className="w-full">音乐版权归【李志先生】所有 ~</div>
+            <div className="w-full">音乐版权归【张韶涵】所有 ~</div>
           </div>
         </div>
       </div>

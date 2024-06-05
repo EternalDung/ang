@@ -15,7 +15,7 @@ const audioLists = window.list?.map((v) => {
     name: `${v.name} · ${v.artist}`.replace('专辑-', ''),
     musicSrc: v.url,
     cover: v.cover,
-    singer: '李志',
+    singer: '张韶涵',
   };
 });
 
@@ -107,7 +107,7 @@ export default function Layout({ children, location }) {
     <div className="w-screen h-screen bg-black text-white pl-64">
       <div className="fixed top-0 left-0 w-64 h-screen p-10 pb-0 flex flex-col justify-between">
         <div>
-          <h2 className="text-white text-3xl mb-4 font-bold">李志</h2>
+          <h2 className="text-white text-3xl mb-4 font-bold">张韶涵</h2>
 
           <div
             onClick={() => setOpen(true)}
@@ -157,7 +157,7 @@ export default function Layout({ children, location }) {
               💿<span className="pl-4">专辑</span>
             </Link>
             <Link
-              to="/video"
+              to="/"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer ${
                 location.pathname.startsWith('/video') &&
                 'bg-green-500 shadow shadow-green-500/50'
@@ -166,7 +166,7 @@ export default function Layout({ children, location }) {
               🔥<span className="pl-4">Live</span>
             </Link>
             <Link
-              to="/about"
+              to="/"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer ${
                 location.pathname.startsWith('/about') &&
                 'bg-green-500 shadow shadow-green-500/50'
@@ -175,7 +175,7 @@ export default function Layout({ children, location }) {
               🧑<span className="pl-4">自传</span>
             </Link>
             <Link
-              to="/download"
+              to="/"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer 
               ${
                 location.pathname.startsWith('/download') &&
@@ -186,7 +186,7 @@ export default function Layout({ children, location }) {
               📦<span className="pl-4">APP</span>
             </Link>
             <Link
-              to="/star"
+              to="/"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer 
               ${
                 location.pathname.startsWith('/star') &&
@@ -217,7 +217,7 @@ export default function Layout({ children, location }) {
 
         <img
           className="w-36 opacity-50"
-          src={require('@/assets/lizhi.png')}
+          src={require('@/assets/ang.png')}
           alt=""
         />
       </div>
@@ -233,7 +233,7 @@ export default function Layout({ children, location }) {
           right: 0,
           color: 'white',
         }}
-        href="https://github.com/turkyden/lizhi-app"
+        href="https://github.com/EternalDung/ang"
         title="Follow me on GitHub"
         aria-label="Follow me on GitHub"
         rel="noopener"

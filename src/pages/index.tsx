@@ -3,21 +3,25 @@ import { Link } from 'umi';
 
 const LIVE = [
   {
-    title: '2014 IO 跨年音乐会',
-    post: '/post/io-封面.jpg',
+    title: '张韶涵live',
+    post: '/post/Ang 5.0.png',
   },
-  {
-    title: '2015 看见·北京巡回',
-    post: '/post/2015看见.png',
-  },
-  {
-    title: '2016 北京不插电',
-    post: '/post/2016-unplugged.png',
-  },
-  {
-    title: '2019 洗心革面跨年',
-    post: '/post/洗心革面.png',
-  },
+  // {
+  //   title: '2014 IO 跨年音乐会',
+  //   post: '/post/io-封面.jpg',
+  // },
+  // {
+  //   title: '2015 看见·北京巡回',
+  //   post: '/post/2015看见.png',
+  // },
+  // {
+  //   title: '2016 北京不插电',
+  //   post: '/post/2016-unplugged.png',
+  // },
+  // {
+  //   title: '2019 洗心革面跨年',
+  //   post: '/post/洗心革面.png',
+  // },
 ];
 
 interface IAlbum {
@@ -51,11 +55,11 @@ export default function IndexPage() {
             </video> */}
             <img
               className="object-cover w-full h-48 rounded-xl transition transform hover:scale-105 cursor-pointer"
-              src="/post/lizhi.jpeg"
+              src="/post/angela.jpeg"
               alt="cover"
             />
           </div>
-          <div className="pt-4">我们不能失去信仰 · 李志</div>
+          <div className="pt-4">心会发光的 · 张韶涵</div>
         </Link>
         {(window.album as IAlbumList).map((v, i) => (
           <Link
@@ -76,7 +80,7 @@ export default function IndexPage() {
       <br />
 
       <div className="text-3xl font-bold py-6">Live 现场</div>
-
+      {/* Live现场 */}
       <div className="flex flex-wrap">
         {LIVE.map((v, i) => (
           <Link

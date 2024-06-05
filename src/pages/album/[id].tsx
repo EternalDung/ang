@@ -113,7 +113,7 @@ export default function (props) {
         />
         <div className="pl-10 space-y-4">
           <h3 className="text-3xl text-white">{artist.replace('专辑-', '')}</h3>
-          <div className="pt-4">李志</div>
+          <div className="pt-4">张韶涵</div>
           <div className="flex space-x-4">
             <span>2007-11-12 </span>
             <span>麦田音乐</span>
@@ -191,7 +191,7 @@ export default function (props) {
               <span className="pr-4">{i + 1 > 9 ? i + 1 : '0' + (i + 1)}</span>
               <span className="">{a.name}</span>
             </div>
-            <div className="w-1/5 text-gray-500">李志</div>
+            <div className="w-1/5 text-gray-500">张韶涵</div>
             <div className="w-1/5 flex justify-center items-center space-x-8">
               <span
                 className="cursor-pointer text-gray-500 hover:text-green-500 transition"
