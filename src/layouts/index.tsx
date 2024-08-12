@@ -14,7 +14,7 @@ const audioLists = window.list?.map((v) => {
   return {
     name: `${v.name} · ${v.artist}`.replace('专辑-', ''),
     musicSrc: v.url,
-    cover: v.cover,
+    cover: v.cover.replace(/ /g, '%20'),
     singer: '张韶涵',
   };
 });
@@ -24,7 +24,7 @@ const options = {
   theme: 'dark',
   locale: 'zh_CN',
   showMediaSession: false,
-  autoPlay: false,
+  autoPlay: true,
   toggleMode: false,
   mode: 'full',
   showLyric: false,
@@ -157,7 +157,7 @@ export default function Layout({ children, location }) {
               💿<span className="pl-4">专辑</span>
             </Link>
             <Link
-              to="/"
+              to="/video"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer ${
                 location.pathname.startsWith('/video') &&
                 'bg-green-500 shadow shadow-green-500/50'
@@ -175,7 +175,7 @@ export default function Layout({ children, location }) {
               🧑<span className="pl-4">自传</span>
             </Link>
             <Link
-              to="/"
+              to="/download"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer 
               ${
                 location.pathname.startsWith('/download') &&
