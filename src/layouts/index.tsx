@@ -157,6 +157,15 @@ export default function Layout({ children, location }) {
               💿<span className="pl-4">专辑</span>
             </Link>
             <Link
+              to="/song"
+              className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer ${
+                location.pathname.startsWith('/song') &&
+                'bg-green-500 shadow shadow-green-500/50'
+              }`}
+            >
+              🔥<span className="pl-4">单曲</span>
+            </Link>
+            <Link
               to="/video"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer ${
                 location.pathname.startsWith('/video') &&

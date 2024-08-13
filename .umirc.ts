@@ -26,10 +26,10 @@ export default defineConfig({
   scripts: [
     `
     if(window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
-      window.alert('暂不支持移动端，请用电脑装逼！');
+      window.alert('暂不支持移动端，请用电脑端！');
     }
     `,
-    'https://testingcf.jsdelivr.net/gh/EternalDung/song@a8/audio/list.js',
+    'https://testingcf.jsdelivr.net/gh/EternalDung/song@a10/audio/list.js',
     `
     const groupBy = (arr, fn) =>
       arr

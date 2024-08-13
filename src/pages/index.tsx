@@ -4,7 +4,7 @@ import { Link } from 'umi';
 const LIVE = [
   {
     title: '张韶涵live',
-    post: '/post/Ang 5.0.png',
+    post: '/post/a7.jpg',
   },
   // {
   //   title: '2014 IO 跨年音乐会',
@@ -55,11 +55,11 @@ export default function IndexPage() {
             </video> */}
             <img
               className="object-cover w-full h-48 rounded-xl transition transform hover:scale-105 cursor-pointer"
-              src="/post/angela.jpeg"
+              src="/post/angela-1.jpg"
               alt="cover"
             />
           </div>
-          <div className="pt-4">心会发光的 · 张韶涵</div>
+          <div className="pt-4">谢谢你们 · 丰富了我的人生</div>
         </Link>
         {(window.album as IAlbumList).map((v, i) => (
           <Link
@@ -72,7 +72,7 @@ export default function IndexPage() {
               src={v.cover}
               alt="cover"
             />
-            <div className="pt-4">{v.name}</div>
+            <div className="pt-4 text-center">{v.name}</div>
           </Link>
         ))}
       </div>
