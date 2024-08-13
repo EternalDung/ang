@@ -4,7 +4,7 @@
 
 <div align="center">
 
-[//]: # (  <a href="https://lizhi.turkyden.com" target="_blank">：：：✨ Live Demo ✨ ：：：</a>)
+[//]: # (  <a href="https://github.com/EternalDung/ang" target="_blank">：：：✨ Live Demo ✨ ：：：</a>)
 </div>
 
 <br/>
