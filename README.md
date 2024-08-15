@@ -34,7 +34,7 @@ https://testingcf.jsdelivr.net/gh/EternalDung/song@master/audio/${专辑名称}/
   {
     name: "不想懂得（钢琴弦乐演奏版）",
     artist: "专辑-Ang 5.0",
-    url: "https://testingcf.jsdelivr.net/gh/EternalDung/song@main/audio/Ang 5.0/不想懂得（钢琴弦乐演奏版）.mp3",
+    url: "https://testingcf.jsdelivr.net/gh/EternalDung/song@main/audio/Ang 5.0/不想懂得(钢琴弦乐演奏版).mp3",
     cover:
       "https://testingcf.jsdelivr.net/gh/EternalDung/song@main/audio/Ang 5.0/cover.png",
   }]

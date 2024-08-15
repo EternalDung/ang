@@ -55,7 +55,8 @@ export default function (props) {
     for (let index = 0; index < array.length; index++) {
       const element = array[index];
       const target = element.querySelector('.player-name');
-      if (target?.title.includes(name)) {
+      if (target?.title.split(' · ')[0].includes(name)) {
+        console.log(target);
         target.click();
       }
     }
