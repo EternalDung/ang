@@ -9,7 +9,7 @@
 
 <br/>
 
-![logos](https://testingcf.jsdelivr.net/gh/EternalDung/ang@main/screenshot1.png)
+![logos](https://testingcf.jsdelivr.net/gh/EternalDung/ang@main/screenshot-v1.png)
 
 
 ## 🌏 永久托管
