@@ -24,7 +24,7 @@ const options = {
   theme: 'dark',
   locale: 'zh_CN',
   showMediaSession: false,
-  autoPlay: true,
+  autoPlay: false,
   toggleMode: false,
   mode: 'full',
   showLyric: false,
@@ -157,9 +157,9 @@ export default function Layout({ children, location }) {
               💿<span className="pl-4">专辑</span>
             </Link>
             <Link
-              to="/song"
+              to="/single"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer ${
-                location.pathname.startsWith('/song') &&
+                location.pathname.startsWith('/single') &&
                 'bg-green-500 shadow shadow-green-500/50'
               }`}
             >

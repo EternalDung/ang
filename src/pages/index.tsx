@@ -55,7 +55,7 @@ export default function IndexPage() {
             </video> */}
             <img
               className="object-cover w-full h-48 rounded-xl transition transform hover:scale-105 cursor-pointer"
-              src="/post/angela-1.jpg"
+              src="/post/angela-2.jpg"
               alt="cover"
             />
           </div>
