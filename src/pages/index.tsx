@@ -6,22 +6,6 @@ const LIVE = [
     title: '张韶涵live',
     post: '/post/a7.jpg',
   },
-  // {
-  //   title: '2014 IO 跨年音乐会',
-  //   post: '/post/io-封面.jpg',
-  // },
-  // {
-  //   title: '2015 看见·北京巡回',
-  //   post: '/post/2015看见.png',
-  // },
-  // {
-  //   title: '2016 北京不插电',
-  //   post: '/post/2016-unplugged.png',
-  // },
-  // {
-  //   title: '2019 洗心革面跨年',
-  //   post: '/post/洗心革面.png',
-  // },
 ];
 
 interface IAlbum {
@@ -50,16 +34,25 @@ export default function IndexPage() {
       <div className="flex flex-wrap">
         <Link className="mr-6 mb-8 hover:text-white text-white" to={`/`}>
           <div className="block text-white w-[410px] h-48 rounded-xl overflow-hidden">
-            {/* <video className='w-full' poster='https://www.lizhi334.com/wp-content/uploads/2022/08/lizhi-20-scaled.jpeg' loop muted autoPlay>
-              <source src="https://www.lizhi334.com/wp-content/uploads/2022/03/%E9%A6%96%E9%A1%B5.mp4" type='video/mp4' />
-            </video> */}
+            <video
+              className="w-full"
+              poster="/post/angela-2.jpg"
+              loop
+              muted
+              autoPlay
+            >
+              <source
+                src="https://raw.githubusercontent.com/EternalDung/song/main/mv/有形的翅膀.mp4"
+                type="video/mp4"
+              />
+            </video>
             <img
               className="object-cover w-full h-48 rounded-xl transition transform hover:scale-105 cursor-pointer"
               src="/post/angela-2.jpg"
               alt="cover"
             />
           </div>
-          <div className="pt-4">谢谢你们 · 丰富了我的人生</div>
+          <div className="pt-4 text-center">谢谢你们 · 丰富了我的人生</div>
         </Link>
         {(window.album as IAlbumList).map((v, i) => (
           <Link

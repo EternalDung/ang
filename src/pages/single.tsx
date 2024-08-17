@@ -7,15 +7,18 @@ export default function Single(props) {
 
   const albumList = window.list.filter((v) => v.artist === artist);
 
+  // const onClick = (name: string) => {
+  //   const array = document.querySelectorAll('.audio-item');
+  //   for (let index = 0; index < array.length; index++) {
+  //     const element = array[index];
+  //     const target = element.querySelector('.player-name');
+  //     if (target?.title.split(' · ')[0].includes(name)) {
+  //       target.click();
+  //     }
+  //   }
+  // };
   const onClick = (name: string) => {
-    const array = document.querySelectorAll('.audio-item');
-    for (let index = 0; index < array.length; index++) {
-      const element = array[index];
-      const target = element.querySelector('.player-name');
-      if (target?.title.split(' · ')[0].includes(name)) {
-        target.click();
-      }
-    }
+    alert('点击了【' + name + '】,单曲功能正在开发');
   };
 
   return (
@@ -24,7 +27,7 @@ export default function Single(props) {
       <div className="text-xl py-4">听见张韶涵的声音</div>
 
       <div className="flex flex-wrap">
-        <Link className="mr-6 mb-8 hover:text-white text-white" to={`/`}>
+        <div className="mr-6 mb-8 hover:text-white text-white">
           <div className="block text-white w-[410px] h-48 rounded-xl overflow-hidden">
             {/* <video className='w-full' poster='https://www.lizhi334.com/wp-content/uploads/2022/08/lizhi-20-scaled.jpeg' loop muted autoPlay>
                   <source src="https://www.lizhi334.com/wp-content/uploads/2022/03/%E9%A6%96%E9%A1%B5.mp4" type='video/mp4' />
@@ -38,7 +41,7 @@ export default function Single(props) {
           <div className="pt-4 text-center">
             人都会随着时间变老 · 心态不老就好了
           </div>
-        </Link>
+        </div>
         {(window.album as IAlbumList).map((v, i) => (
           <div
             className="mr-6 mb-8 hover:text-white text-white"

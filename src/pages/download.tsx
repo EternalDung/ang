@@ -5,7 +5,7 @@ function Download() {
     <div className="w-full h-full flex flex-col justify-center items-center">
       <div className="flex items-center space-x-10">
         <a
-          href="https://github.com/tw93/Pake/releases/latest/download/LiZhi.dmg"
+          href=""
           className="text-white hover:text-green-500 w-48 h-48 bg-white/5 hover:bg-white/10 cursor-pointer transition rounded-full flex flex-col items-center justify-center space-y-4"
         >
           <svg
@@ -45,7 +45,7 @@ function Download() {
         </a>
 
         <a
-          href="https://github.com/tw93/Pake/releases/latest/download/LiZhi_x64.msi"
+          href="https://github.com/EternalDung/Pake/actions/runs/10371946620/artifacts/1807055898"
           className="text-white hover:text-green-500 w-48 h-48 bg-white/5 hover:bg-white/10 cursor-pointer transition rounded-full flex flex-col items-center justify-center space-y-4"
         >
           <svg
@@ -66,7 +66,7 @@ function Download() {
         </a>
 
         <a
-          href="https://github.com/tw93/Pake/releases/latest/download/LiZhi_amd64.deb"
+          href=""
           className="text-white hover:text-green-500 w-48 h-48 bg-white/5 hover:bg-white/10 cursor-pointer transition rounded-full flex flex-col items-center justify-center space-y-4"
         >
           <svg

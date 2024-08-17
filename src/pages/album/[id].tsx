@@ -47,16 +47,17 @@ interface ISongList extends Array<ISong> {}
 export default function (props) {
   const [currDownloadingName, setcurrDownloadingName] = useState('');
   const artist = props.match.params.id;
-
+  // 过滤点击的专辑歌曲
   const albumList = window.list.filter((v) => v.artist === artist);
 
   const onClick = (name: string) => {
     const array = document.querySelectorAll('.audio-item');
     for (let index = 0; index < array.length; index++) {
       const element = array[index];
+      console.log(element);
+
       const target = element.querySelector('.player-name');
       if (target?.title.split(' · ')[0].includes(name)) {
-        console.log(target);
         target.click();
       }
     }

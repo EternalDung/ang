@@ -64,8 +64,14 @@ export default function Layout({ children, location }) {
             href: '/',
           },
           {
+            id: 'single',
+            children: '单曲',
+            icon: 'LifebuoyIcon',
+            href: '/#/single',
+          },
+          {
             id: 'live',
-            children: '现场',
+            children: 'Live',
             icon: 'SunIcon',
             href: '/#/video',
           },
@@ -89,7 +95,7 @@ export default function Layout({ children, location }) {
             children: '参与贡献',
             icon: 'CodeBracketIcon',
             target: '_blank',
-            href: 'https://github.com/turkyden/lizhi-app',
+            href: 'https://github.com/EternalDung/ang',
           },
           // {
           //   id: 'star',
@@ -105,6 +111,7 @@ export default function Layout({ children, location }) {
 
   return (
     <div className="w-screen h-screen bg-black text-white pl-64">
+      {/* 左侧导航区 */}
       <div className="fixed top-0 left-0 w-64 h-screen p-10 pb-0 flex flex-col justify-between">
         <div>
           <h2 className="text-white text-3xl mb-4 font-bold">张韶涵</h2>
@@ -163,7 +170,7 @@ export default function Layout({ children, location }) {
                 'bg-green-500 shadow shadow-green-500/50'
               }`}
             >
-              🔥<span className="pl-4">单曲</span>
+              🎸<span className="pl-4">单曲</span>
             </Link>
             <Link
               to="/video"
@@ -174,7 +181,7 @@ export default function Layout({ children, location }) {
             >
               🔥<span className="pl-4">Live</span>
             </Link>
-            <Link
+            {/* <Link
               to="/"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer ${
                 location.pathname.startsWith('/about') &&
@@ -182,7 +189,7 @@ export default function Layout({ children, location }) {
               }`}
             >
               🧑<span className="pl-4">自传</span>
-            </Link>
+            </Link> */}
             <Link
               to="/download"
               className={`block text-white hover:text-white transition py-1 px-4 rounded hover:bg-green-500 cursor-pointer 
@@ -230,9 +237,11 @@ export default function Layout({ children, location }) {
           alt=""
         />
       </div>
+      {/* 右侧路由区 */}
       <div className="w-[100% - 256px] h-screen overflow-y-auto px-8 py-10">
         {children}
       </div>
+      {/* 播放器组件 */}
       <ReactJkMusicPlayer {...options} />
       <a
         id="github-link"

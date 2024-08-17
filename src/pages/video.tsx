@@ -4,16 +4,20 @@ import Hls from 'hls.js';
 
 const videoList = [
   {
-    name: '2014-IO跨年演唱会',
-    url: 'https://testingcf.jsdelivr.net/gh/nj-lizhi/kn-2014-io@main/video/roadmap.js',
+    name: '有形的翅膀 MV',
+    url: 'https://mvwebfs.tx.kugou.com/202408152039/4e8f8a85b89c557e1d515777f9c812e9/v2/becec101ead43b22d1831bd95359712b/G087/M01/0B/14/N5QEAFiIGE2Afi1UAd3LgCtKSTU526.mp4',
   },
   {
-    name: '2015-看见北京站直播实录',
-    url: 'https://testingcf.jsdelivr.net/gh/nj-lizhi/kn-2015-kj@main/video/roadmap.js',
+    name: '淋雨一直走',
+    url: '',
   },
   {
-    name: '2018-洗心革面跨年演唱会',
-    url: 'https://testingcf.jsdelivr.net/gh/nj-lizhi/kn-2018-xxgm@main/video/roadmap.js',
+    name: '阿刁',
+    url: '',
+  },
+  {
+    name: '破茧',
+    url: '',
   },
 ];
 
@@ -65,6 +69,10 @@ function Video() {
         </svg>
         <span className="pl-2">Back</span>
       </Link>
+
+      <div className="text-3xl font-bold mt-6">Live</div>
+      <div className="text-xl py-4">欣赏盛世美颜</div>
+
       <div className="w-full h-full flex flex-col justify-center items-center">
         <div>
           {/* <div className="text-3xl font-bold pb-4">Live 现场</div> */}
