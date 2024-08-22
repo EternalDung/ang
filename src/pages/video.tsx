@@ -49,7 +49,7 @@ function Video() {
 
   return (
     <>
-      <Link
+      {/* <Link
         className="fixed flex items-center group hover:text-white cursor-pointer text-white"
         to="/"
       >
@@ -68,9 +68,8 @@ function Video() {
           />
         </svg>
         <span className="pl-2">Back</span>
-      </Link>
-
-      <div className="text-3xl font-bold mt-6">Live</div>
+      </Link> */}
+      <div className="text-3xl font-bold">Live</div>
       <div className="text-xl py-4">欣赏盛世美颜</div>
 
       <div className="w-full h-full flex flex-col justify-center items-center">

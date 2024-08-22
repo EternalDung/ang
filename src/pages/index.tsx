@@ -42,7 +42,7 @@ export default function IndexPage() {
               autoPlay
             >
               <source
-                src="https://raw.githubusercontent.com/EternalDung/song/main/mv/有形的翅膀.mp4"
+                src="https://mvwebfs.hw.kugou.com/202408171812/7e680cc049bc97eb0c4d3d9f2e76dae6/v2/becec101ead43b22d1831bd95359712b/G087/M01/0B/14/N5QEAFiIGE2Afi1UAd3LgCtKSTU526.mp4"
                 type="video/mp4"
               />
             </video>
