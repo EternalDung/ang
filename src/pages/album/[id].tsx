@@ -1,70 +1,29 @@
-import { Link } from 'umi';
+import { Link, useDispatch, useSelector } from 'umi';
 import { message } from 'antd';
-import { useState } from 'react';
-
-const ALBUM = [
-  {
-    title: '被禁忌的游戏',
-  },
-  {
-    title: '这个世界会好吗',
-  },
-  {
-    title: '梵高先生',
-  },
-  {
-    title: '我爱南京',
-  },
-  {
-    title: '你好，郑州',
-  },
-  {
-    title: '1701',
-  },
-  {
-    title: 'F',
-  },
-  {
-    title: '这个世界会好吗',
-  },
-  {
-    title: '8',
-  },
-  {
-    title: '在每一条伤心的应天大街上',
-  },
-];
-
-interface ISong {
-  artist: string;
-  cover: string;
-  name: string;
-  url: string;
-}
-
-interface ISongList extends Array<ISong> {}
+import { useEffect, useState } from 'react';
+import { ALBUM, SONG } from '@/type';
 
 export default function (props) {
   const [currDownloadingName, setcurrDownloadingName] = useState('');
-  const artist = props.match.params.id;
-  // 过滤点击的专辑歌曲
-  const albumList = window.list.filter((v) => v.artist === artist);
+  const album = props.match.params.id;
+  const dispatch = useDispatch();
+  const [albumInfo, setAlbumInfo] = useState<ALBUM>();
+  const albums = useSelector((state) => state.music.albums) as ALBUM[];
+  useEffect(() => {
+    const albumInfo = albums.find((v: ALBUM) => v.album === album);
+    albumInfo ? setAlbumInfo(albumInfo) : setAlbumInfo(null);
+    setAlbumInfo(albumInfo);
+  }, [albums]);
 
-  const onClick = (name: string) => {
-    const array = document.querySelectorAll('.audio-item');
-    for (let index = 0; index < array.length; index++) {
-      const element = array[index];
-      console.log(element);
-
-      const target = element.querySelector('.player-name');
-      if (target?.title.split(' · ')[0].includes(name)) {
-        target.click();
-      }
-    }
+  const onClick = (song: SONG) => {
+    dispatch({
+      type: 'music/setCurrentSong',
+      payload: song,
+    });
   };
 
-  const handleDownload = async ({ name, url }: ISong) => {
-    setcurrDownloadingName(name);
+  const handleDownload = async ({ title, url }: SONG) => {
+    setcurrDownloadingName(title);
     try {
       let res = await fetch(url);
       let blob = await res.blob();
@@ -75,13 +34,13 @@ export default function (props) {
       const targetUrl = window.URL.createObjectURL(blob);
       a.href = targetUrl;
       // 指定下载的文件名
-      a.download = name;
+      a.download = title;
       a.click();
       document.body.removeChild(a);
       // 移除blob对象的url
       window.URL.revokeObjectURL(url);
     } catch (e) {
-      alert(`下载音乐: "${name}" 失败`);
+      alert(`下载音乐: "${title}" 失败`);
     }
     setcurrDownloadingName('');
   };
@@ -110,21 +69,23 @@ export default function (props) {
       <div className="flex">
         <img
           className="w-48 h-48 rounded-xl"
-          src={albumList[0].cover}
+          src={albumInfo?.cover}
           alt="cover"
         />
         <div className="pl-10 space-y-4">
-          <h3 className="text-3xl text-white">{artist.replace('专辑-', '')}</h3>
-          <div className="pt-4">张韶涵</div>
+          <h3 className="text-3xl text-white">{albumInfo?.album}</h3>
+          <div className="pt-4">{albumInfo?.artist}</div>
           <div className="flex space-x-4">
-            <span>2007-11-12 </span>
-            <span>麦田音乐</span>
+            <span>{albumInfo?.publish} </span>
+            <span>{albumInfo?.company}</span>
             <span>发行</span>
           </div>
 
           <div className="flex space-x-4 pt-4">
             <div
-              onClick={() => onClick(albumList[0].name)}
+              onClick={() =>
+                albumInfo?.songs?.[0] && onClick(albumInfo.songs[0])
+              }
               className="transition hover:text-white text-center py-2 px-6 rounded-full bg-green-500 text-white cursor-pointer hover:opacity-90 shadow-lg shadow-green-500/50 flex items-center"
             >
               <svg
@@ -166,8 +127,8 @@ export default function (props) {
       </div>
 
       <div className="flex items-center space-x-10 pt-10">
-        <div className="pb-2 cursor-pointer hover:text-green-500 text-green-500 border-0 border-solid border-b-2 border-green-500">
-          歌曲 {albumList.length}
+        <div className="pb-2 cursor-pointer hover:text-green-500 text-green-500 border-0 border-solid border-b-2 border-green-500 text-xl">
+          歌曲 {albumInfo?.songs.length}
         </div>
         <div
           className="hidden pb-2 cursor-not-allowed"
@@ -183,21 +144,21 @@ export default function (props) {
         </div>
       </div>
 
-      <div className="pt-8">
-        {albumList.map((a, i) => (
+      <div className="pt-8 ">
+        {albumInfo?.songs.map((a, i) => (
           <div className="flex items-center py-4 hover:bg-white/10 rounded-lg transition group">
             <div
               className="w-3/5 pl-2 text-white group-hover:text-green-500 cursor-pointer"
-              onClick={() => onClick(a.name)}
+              onClick={() => onClick(a)}
             >
               <span className="pr-4">{i + 1 > 9 ? i + 1 : '0' + (i + 1)}</span>
-              <span className="">{a.name}</span>
+              <span className="">{a.title}</span>
             </div>
-            <div className="w-1/5 text-gray-500">张韶涵</div>
+            <div className="w-1/5 text-gray-500">{a.artist}</div>
             <div className="w-1/5 flex justify-center items-center space-x-8">
               <span
                 className="cursor-pointer text-gray-500 hover:text-green-500 transition"
-                onClick={() => onClick(a.name)}
+                onClick={() => onClick(a)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +179,7 @@ export default function (props) {
                 className="cursor-pointer text-gray-500 hover:text-green-500 transition"
                 onClick={() => handleDownload(a)}
               >
-                {currDownloadingName && currDownloadingName === a.name ? (
+                {currDownloadingName && currDownloadingName === a.title ? (
                   <svg
                     width="24"
                     height="24"

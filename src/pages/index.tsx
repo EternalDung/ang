@@ -1,5 +1,7 @@
+import { getAlbumListAPI } from '@/apis/album';
+import { ALBUM } from '@/type';
 import { useEffect, useState } from 'react';
-import { Link } from 'umi';
+import { Link, useDispatch, useSelector } from 'umi';
 
 const LIVE = [
   {
@@ -8,24 +10,15 @@ const LIVE = [
   },
 ];
 
-interface IAlbum {
-  id: string;
-  cover: string;
-  name: string;
-}
-
-interface IAlbumList extends Array<IAlbum> {}
-
-interface ISong {
-  artist: string;
-  cover: string;
-  name: string;
-  url: string;
-}
-
-interface ISongList extends Array<ISong> {}
-
 export default function IndexPage() {
+  // const [albumList, setAlbumList] = useState<ALBUM[]>([]);
+  const albums = useSelector((state) => state.music.albums) as ALBUM[];
+  useEffect(() => {}, [albums]);
+  const albumList = [...albums].sort((a, b) => {
+    const dateA = new Date(a.publish);
+    const dateB = new Date(b.publish);
+    return dateB - dateA;
+  });
   return (
     <>
       <div className="text-3xl font-bold">专辑</div>
@@ -54,18 +47,18 @@ export default function IndexPage() {
           </div>
           <div className="pt-4 text-center">谢谢你们 · 丰富了我的人生</div>
         </Link>
-        {(window.album as IAlbumList).map((v, i) => (
+        {albumList.map((v, i) => (
           <Link
             className="mr-6 mb-8 hover:text-white text-white"
-            key={v.id}
-            to={`/album/${v.id}`}
+            key={v.album}
+            to={`/album/${v.album}`}
           >
             <img
               className="w-48 h-48 rounded-xl transition transform hover:scale-105 cursor-pointer"
               src={v.cover}
               alt="cover"
             />
-            <div className="pt-4 text-center">{v.name}</div>
+            <div className="pt-4 text-center">{v.album}</div>
           </Link>
         ))}
       </div>

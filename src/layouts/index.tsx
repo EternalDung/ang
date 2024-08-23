@@ -5,44 +5,184 @@ import CommandPalette, {
   getItemIndex,
   useHandleOpenCommandPalette,
 } from 'react-cmdk';
-import { Link } from 'umi';
+import { Link, useDispatch, useSelector } from 'umi';
 import 'react-jinke-music-player/assets/index.css';
 import './index.css';
 import 'react-cmdk/dist/cmdk.css';
-
-const audioLists = window.list?.map((v) => {
-  return {
-    name: `${v.name} · ${v.artist}`.replace('专辑-', ''),
-    musicSrc: v.url,
-    cover: v.cover.replace(/ /g, '%20'),
-    singer: '张韶涵',
-  };
-});
-
-const options = {
-  audioLists,
-  theme: 'dark',
-  locale: 'zh_CN',
-  showMediaSession: false,
-  autoPlay: false,
-  toggleMode: false,
-  mode: 'full',
-  showLyric: false,
-  showThemeSwitch: false,
-  showReload: false,
-  showDownload: !window.location.href.includes('from=pake'),
-};
-
+import { ALBUM, PLAY_LIST_SONG, SINGLE, SONG } from '@/type';
+import { fetchLyrics } from '@/apis/album';
 export default function Layout({ children, location }) {
   const [active, setActive] = useState('all');
-
   const [page, setPage] = useState<'root' | 'albums'>('root');
   const [open, setOpen] = useState<boolean>(false);
   const [search, setSearch] = useState('');
-
+  const [albumList, setAlbumList] = useState<ALBUM[]>([]);
+  const [options, setOptions] = useState<{
+    audioLists: any[]; // 根据实际情况调整类型
+    theme: string;
+    locale: string;
+    showMediaSession: boolean;
+    autoPlay: boolean;
+    toggleMode: boolean;
+    mode: string;
+    showLyric: boolean;
+    showThemeSwitch: boolean;
+    showReload: boolean;
+    showDownload: boolean;
+  }>({
+    audioLists: [], // 初始时可以为空数组
+    theme: 'dark',
+    locale: 'zh_CN',
+    showMediaSession: false,
+    autoPlay: false,
+    toggleMode: false,
+    mode: 'full',
+    showLyric: true,
+    showThemeSwitch: false,
+    showReload: false,
+    showDownload: !window.location.href.includes('from=pake'),
+  });
+  const [nowAlbum, setNowAlbum] = useState('');
+  const dispatch = useDispatch();
+  const currentSong = useSelector((state) => state.music.currentSong); //当前点击歌曲
+  const albums = useSelector((state) => state.music.albums); //专辑列表
+  const singles = useSelector((state) => state.music.singles); //单曲列表
   useHandleOpenCommandPalette(setOpen);
 
+  // 格式化为播放器要求的歌单列表
+  const albumToPlayList = async (album: ALBUM): Promise<PLAY_LIST_SONG[]> => {
+    // 使用 Promise.all 来等待所有 fetchLyrics 的 Promise 完成
+    const songsWithLyrics = await Promise.all(
+      album.songs.map(async (v) => {
+        const lyric = await fetchLyrics(v.lyric); // 等待 fetchLyrics 完成
+        return {
+          name: `${v.title} · ${album.album}`,
+          musicSrc: v.url,
+          cover: album.cover.replace(/ /g, '%20'),
+          singer: v.artist,
+          lyric: lyric, // 添加 lyric 到返回的对象中
+        } as PLAY_LIST_SONG;
+      }),
+    );
+
+    return songsWithLyrics;
+  };
+
+  //切歌
+  const changeSong = (song: SONG) => {
+    const name = song.title;
+    console.log(`切换到歌曲 ${name}`);
+    //如果歌单被清空，需要重新设置列表到为此专辑
+    if (song.album != nowAlbum) {
+      changeAlbum(song);
+      setNowAlbum(song.album);
+    }
+    const array = document.querySelectorAll('.audio-item');
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index];
+      const target = element.querySelector('.player-name');
+      if (target?.title.split(' · ')[0] === name) {
+        target.click();
+      }
+    }
+  };
+  const changeAlbum = (song: SONG) => {
+    const album = albums.find((v: SONG) => v.album === song.album);
+    albumToPlayList(album).then((list) => {
+      setOptions((prevOptions) => ({
+        ...prevOptions,
+        audioLists: list || [],
+      }));
+      setNowAlbum(song.album);
+    });
+  };
+  const changeAlbumAndSong = (song: SONG) => {
+    changeAlbum(song);
+    //歌曲要延迟一下，不然播放列表可能没更新
+    setTimeout(() => {
+      changeSong(song);
+    }, 500);
+  };
+  const addSingleToPlayList = (song: SINGLE) => {
+    const target: SINGLE = singles.find((v: SINGLE) => v.title === song.title);
+    fetchLyrics(target.lyric).then((lyric) => {
+      const single: PLAY_LIST_SONG[] = [
+        {
+          name: target.title,
+          singer: target.artist,
+          cover: target.cover,
+          musicSrc: target.url,
+          lyric: lyric,
+        },
+      ];
+      setOptions((prevOptions) => ({
+        ...prevOptions,
+        audioLists: single || [],
+      }));
+      setTimeout(() => {
+        changeToSingle(song);
+      }, 500);
+    });
+  };
+  //切换单曲
+  const changeToSingle = (single: SINGLE) => {
+    const name = single.title;
+    const array = document.querySelectorAll('.audio-item');
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index];
+      const target = element.querySelector('.player-name');
+      if (target?.title.split(' · ')[0] === name) {
+        target.click();
+      }
+    }
+  };
+  //获取专辑列表
+  const fetchAlbums = () => {
+    dispatch({
+      type: 'music/fetchAlbums',
+    });
+  };
+  //获取专辑列表
+  const fetchSingles = () => {
+    dispatch({
+      type: 'music/fetchSingles',
+    });
+  };
   useEffect(() => {
+    if (currentSong) {
+      // 歌曲变更
+      console.log(`Now playing: ${currentSong.album}`);
+      //是专辑歌曲
+      if (currentSong.intro === undefined) {
+        //专辑不变化
+        if (currentSong.album === nowAlbum) {
+          changeSong(currentSong);
+        } else {
+          //专辑发生变化
+          console.log(`专辑${nowAlbum}变更为${currentSong.album}`);
+          changeAlbumAndSong(currentSong);
+        }
+      } else {
+        //是单曲
+        addSingleToPlayList(currentSong);
+      }
+    }
+  }, [currentSong]);
+
+  useEffect(() => {
+    if (albums.length > 0) {
+      albumToPlayList(albums[0]).then((list) => {
+        setOptions((prevOptions) => ({
+          ...prevOptions,
+          audioLists: list,
+        }));
+      });
+    }
+  }, [albums]);
+
+  useEffect(() => {
+    fetchAlbums();
+    fetchSingles();
     document
       .querySelector('.music-player-panel')
       .classList.add('backdrop-blur-md');

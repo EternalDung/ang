@@ -1,26 +1,21 @@
-import { Link } from 'umi';
-import { useState } from 'react';
+import { Link, useDispatch, useSelector } from 'umi';
+import { useEffect, useState } from 'react';
+import { SINGLE } from '@/type';
 
 export default function Single(props) {
-  const [currDownloadingName, setcurrDownloadingName] = useState('');
-  const artist = props.match.params.id;
+  const singles = useSelector((state) => state.music.singles) as SINGLE[];
+  const dispatch = useDispatch();
+  const onClick = (s: SINGLE) => {
+    console.log('点击了' + s.title);
 
-  const albumList = window.list.filter((v) => v.artist === artist);
-
-  // const onClick = (name: string) => {
-  //   const array = document.querySelectorAll('.audio-item');
-  //   for (let index = 0; index < array.length; index++) {
-  //     const element = array[index];
-  //     const target = element.querySelector('.player-name');
-  //     if (target?.title.split(' · ')[0].includes(name)) {
-  //       target.click();
-  //     }
-  //   }
-  // };
-  const onClick = (name: string) => {
-    alert('点击了【' + name + '】,单曲功能正在开发');
+    dispatch({
+      type: 'music/setCurrentSong',
+      payload: s,
+    });
   };
-
+  useEffect(() => {
+    console.log(singles);
+  }, [singles]);
   return (
     <>
       <div className="text-3xl font-bold">单曲</div>
@@ -42,18 +37,18 @@ export default function Single(props) {
             人都会随着时间变老 · 心态不老就好了
           </div>
         </div>
-        {(window.album as IAlbumList).map((v, i) => (
+        {singles?.map((v, i) => (
           <div
             className="mr-6 mb-8 hover:text-white text-white"
-            key={v.id}
-            onClick={() => onClick(v.name)}
+            key={v.title}
+            onClick={() => onClick(v)}
           >
             <img
               className="w-48 h-48 rounded-xl transition transform hover:scale-105 cursor-pointer"
               src={v.cover}
               alt="cover"
             />
-            <div className="pt-4 text-center">{v.name}</div>
+            <div className="pt-4 text-center">{v.title}</div>
           </div>
         ))}
       </div>

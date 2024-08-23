@@ -60,6 +60,15 @@ https://testingcf.jsdelivr.net/gh/EternalDung/song@master/audio/${专辑名称}/
 |                          | 全面沦陷                  |
 |                          | ？                        |
 
+## TODO
+- [x] 修复专辑存在同名歌曲无法播放/封面不正常显示
+- [x] 实现单曲功能
+- [x] 适配歌词
+- [ ] 换个favicon
+- [ ] 补充单曲
+- [ ] 更换更小的封面，加快加载速度
+- [ ] Live
+- [ ] MV
 
 ## 参与贡献
 
