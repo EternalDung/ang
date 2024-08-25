@@ -20,24 +20,93 @@
 https://testingcf.jsdelivr.net/gh/EternalDung/song@master/audio/${专辑名称}/${歌名}.mp3
 ```
 
-歌单索引 [list.js](https://testingcf.jsdelivr.net/gh/nj-lizhi/song@master/audio/list-v2.js)，会前端开发的小伙伴可以基于曲库资源 DIY 你自己的播放器 ！
+专辑歌单索引 [list.js](https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/list-1.2.js)，会前端开发的小伙伴可以基于曲库资源 DIY 你自己的播放器 ！
 
 ```js
 [
-  {
-    name: "不想懂得",
-    artist: "专辑-Ang 5.0",
-    url: "https://testingcf.jsdelivr.net/gh/EternalDung/song@main/audio/Ang 5.0/不想懂得.mp3",
-    cover:
-      "https://testingcf.jsdelivr.net/gh/EternalDung/song@main/audio/Ang 5.0/cover.png",
+  //A10
+ {
+    "artist": "张韶涵",
+    "album": "？",
+    "publish": "2019-12-18",
+    "company": "心喜文化",
+    "cover": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/cover.png",
+    "intro": "手工完善",
+    "songs": [
+      {
+        "title": "作势装腔",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/作势装腔.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/作势装腔.lrc"
+      },
+      {
+        "title": "别",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/别.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/别.lrc"
+      },
+      {
+        "title": "因“我”而起",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/因“我”而起.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/因“我”而起.lrc"
+      },
+      {
+        "title": "常",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/常.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/常.lrc"
+      },
+      {
+        "title": "引路的风筝",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/引路的风筝.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/引路的风筝.lrc"
+      },
+      {
+        "title": "我",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/我.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/我.lrc"
+      },
+      {
+        "title": "无度",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/无度.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/无度.lrc"
+      },
+      {
+        "title": "河",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/河.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/河.lrc"
+      },
+      {
+        "title": "给还没出现的你",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/给还没出现的你.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/给还没出现的你.lrc"
+      },
+      {
+        "title": "还",
+        "artist": "张韶涵",
+        "album": "？",
+        "url": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/还.mp3",
+        "lyric": "https://testingcf.jsdelivr.net/gh/EternalDung/song@1.1/audio/？/还.lrc"
+      }
+    ]
   },
-  {
-    name: "不想懂得（钢琴弦乐演奏版）",
-    artist: "专辑-Ang 5.0",
-    url: "https://testingcf.jsdelivr.net/gh/EternalDung/song@main/audio/Ang 5.0/不想懂得(钢琴弦乐演奏版).mp3",
-    cover:
-      "https://testingcf.jsdelivr.net/gh/EternalDung/song@main/audio/Ang 5.0/cover.png",
-  }]
+  //...其他专辑
+]
 ```
 
 ## 📹 Live 现场
@@ -66,7 +135,8 @@ https://testingcf.jsdelivr.net/gh/EternalDung/song@master/audio/${专辑名称}/
 - [x] 适配歌词
 - [ ] 换个favicon
 - [ ] 补充单曲
-- [ ] 更换更小的封面，加快加载速度
+- [ ] 调整专辑封面大小，加快加载速度
+- [ ] 专辑歌曲增加索引
 - [ ] Live
 - [ ] MV
 
