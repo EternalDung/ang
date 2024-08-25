@@ -3,6 +3,7 @@ import ReactJkMusicPlayer from 'react-jinke-music-player';
 import CommandPalette, {
   filterItems,
   getItemIndex,
+  JsonStructureItem,
   useHandleOpenCommandPalette,
 } from 'react-cmdk';
 import { Link, useDispatch, useSelector } from 'umi';
@@ -16,9 +17,11 @@ export default function Layout({ children, location }) {
   const [page, setPage] = useState<'root' | 'albums'>('root');
   const [open, setOpen] = useState<boolean>(false);
   const [search, setSearch] = useState('');
-  const [albumList, setAlbumList] = useState<ALBUM[]>([]);
+  //已经加载过歌词的专辑列表
+  const [loadedAlbums, setLoadedAlbums] = useState<string[]>([]);
+  // 播放器配置
   const [options, setOptions] = useState<{
-    audioLists: any[]; // 根据实际情况调整类型
+    audioLists: PLAY_LIST_SONG[];
     theme: string;
     locale: string;
     showMediaSession: boolean;
@@ -30,7 +33,7 @@ export default function Layout({ children, location }) {
     showReload: boolean;
     showDownload: boolean;
   }>({
-    audioLists: [], // 初始时可以为空数组
+    audioLists: [], // 初始时为空数组
     theme: 'dark',
     locale: 'zh_CN',
     showMediaSession: false,
@@ -67,7 +70,18 @@ export default function Layout({ children, location }) {
 
     return songsWithLyrics;
   };
-
+  const clearPlayList = () => {
+    var deleteButton = document.querySelector(
+      '.audio-lists-panel-header-delete-btn',
+    );
+    // 检查是否找到了元素
+    if (deleteButton) {
+      // 模拟点击事件
+      deleteButton.click();
+    } else {
+      console.log('没有找到具有指定类名的元素');
+    }
+  };
   //切歌
   const changeSong = (song: SONG) => {
     const name = song.title;
@@ -87,14 +101,22 @@ export default function Layout({ children, location }) {
     }
   };
   const changeAlbum = (song: SONG) => {
-    const album = albums.find((v: SONG) => v.album === song.album);
-    albumToPlayList(album).then((list) => {
-      setOptions((prevOptions) => ({
-        ...prevOptions,
-        audioLists: list || [],
-      }));
+    console.log(loadedAlbums);
+    //如果专辑没加载过，需要先加载
+    if (!loadedAlbums.includes(song.album)) {
+      const album = albums.find((v: SONG) => v.album === song.album);
+      albumToPlayList(album).then((list) => {
+        setOptions((prevOptions) => ({
+          ...prevOptions,
+          audioLists: list || [],
+        }));
+        setNowAlbum(song.album);
+        loadedAlbums.push(song.album);
+      });
+    } else {
+      console.log(`专辑${song.album}已经加载过，无需重新请求歌词`);
       setNowAlbum(song.album);
-    });
+    }
   };
   const changeAlbumAndSong = (song: SONG) => {
     changeAlbum(song);
@@ -159,7 +181,7 @@ export default function Layout({ children, location }) {
           changeSong(currentSong);
         } else {
           //专辑发生变化
-          console.log(`专辑${nowAlbum}变更为${currentSong.album}`);
+          console.log(`播放专辑从${nowAlbum}变更为${currentSong.album}`);
           changeAlbumAndSong(currentSong);
         }
       } else {
@@ -172,6 +194,8 @@ export default function Layout({ children, location }) {
   useEffect(() => {
     if (albums.length > 0) {
       albumToPlayList(albums[0]).then((list) => {
+        //已经加载过专辑歌词
+        loadedAlbums.push(albums[0].album);
         setOptions((prevOptions) => ({
           ...prevOptions,
           audioLists: list,
@@ -183,6 +207,16 @@ export default function Layout({ children, location }) {
   useEffect(() => {
     fetchAlbums();
     fetchSingles();
+    // 清空播放列表绑定事件
+    document.addEventListener('DOMContentLoaded', function () {
+      var clearPlayListButton = document.querySelector(
+        '.audio-lists-panel-header-delete-btn',
+      );
+      clearPlayListButton?.addEventListener('click', function () {
+        // 按钮被点击时执行的代码
+        setLoadedAlbums([]);
+      });
+    });
     document
       .querySelector('.music-player-panel')
       .classList.add('backdrop-blur-md');
@@ -190,6 +224,36 @@ export default function Layout({ children, location }) {
       .querySelector('.audio-lists-panel')
       .classList.add('backdrop-blur-md');
   }, []);
+
+  const albumsCommandItems = albums.map((v: ALBUM) => {
+    return {
+      id: v.album,
+      children: v.album,
+      icon: 'MapIcon',
+      closeOnSelect: true,
+      href: `/#/album/${v.album}`,
+    };
+  });
+
+  const backHome = [
+    {
+      id: 'home',
+      children: '首页',
+      icon: 'HomeIcon',
+      href: '/',
+    },
+  ];
+
+  const albumItems = filterItems(
+    [
+      {
+        heading: 'Albums',
+        id: 'albums',
+        items: backHome.concat(albumsCommandItems) as JsonStructureItem[],
+      },
+    ],
+    search,
+  );
 
   const filteredItems = filterItems(
     [
@@ -217,9 +281,9 @@ export default function Layout({ children, location }) {
           },
           {
             id: 'albums',
-            children: '专辑',
             icon: 'MapIcon',
             closeOnSelect: false,
+            children: '专辑',
             onClick: () => {
               setPage('albums');
             },
@@ -256,6 +320,7 @@ export default function Layout({ children, location }) {
         <div>
           <h2 className="text-white text-3xl mb-4 font-bold">张韶涵</h2>
 
+          {/* 搜索框 */}
           <div
             onClick={() => setOpen(true)}
             className="bg-gray-900 relative pointer-events-auto cursor-pointer"
@@ -438,8 +503,21 @@ export default function Layout({ children, location }) {
         </CommandPalette.Page>
 
         <CommandPalette.Page id="albums">
-          {/* Projects page */}
-          <CommandPalette.FreeSearchAction />
+          {albumItems.length ? (
+            albumItems.map((list) => (
+              <CommandPalette.List key={list.id} heading={list.heading}>
+                {list.items.map(({ id, ...rest }) => (
+                  <CommandPalette.ListItem
+                    key={id}
+                    index={getItemIndex(albumItems, id)}
+                    {...rest}
+                  />
+                ))}
+              </CommandPalette.List>
+            ))
+          ) : (
+            <CommandPalette.FreeSearchAction />
+          )}
         </CommandPalette.Page>
       </CommandPalette>
     </div>

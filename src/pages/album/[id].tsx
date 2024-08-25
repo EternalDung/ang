@@ -144,7 +144,17 @@ export default function (props) {
         </div>
       </div>
 
-      <div className="pt-8 ">
+      <div
+        className="pt-8 rounded-lg"
+        // style={{
+        //   backgroundImage: `url(${
+        //     albumInfo?.cover.replace(/ /g, '%20')
+        //   })`, // 如果albumInfo?.cover不存在，则使用默认图片
+        //   backgroundPosition: 'right bottom', // 将背景图片定位到右下角
+        //   backgroundRepeat: 'no-repeat', // 确保背景图片不重复
+        //   backgroundSize: 'contain', // 确保背景图片适应容器大小
+        // }}
+      >
         {albumInfo?.songs.map((a, i) => (
           <div className="flex items-center py-4 hover:bg-white/10 rounded-lg transition group">
             <div

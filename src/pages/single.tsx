@@ -2,20 +2,16 @@ import { Link, useDispatch, useSelector } from 'umi';
 import { useEffect, useState } from 'react';
 import { SINGLE } from '@/type';
 
-export default function Single(props) {
+export default function Single() {
   const singles = useSelector((state) => state.music.singles) as SINGLE[];
   const dispatch = useDispatch();
   const onClick = (s: SINGLE) => {
-    console.log('点击了' + s.title);
-
     dispatch({
       type: 'music/setCurrentSong',
       payload: s,
     });
   };
-  useEffect(() => {
-    console.log(singles);
-  }, [singles]);
+  useEffect(() => {}, [singles]);
   return (
     <>
       <div className="text-3xl font-bold">单曲</div>
